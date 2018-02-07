@@ -175,7 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CLI\CommandLineOptions.cs" />
-    <Compile Include="CLI\CommandLineParser.cs" />
+    <Compile Include="Config\ActorSystemConfig.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
