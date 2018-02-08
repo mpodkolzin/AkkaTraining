@@ -1,6 +1,8 @@
 AkkaTraining/bin
 AkkaTraining/obj
 AkkaTrainingUnitTests/obj
+AkkaTrainingUnitTests/bin
+
 packages
 
 *.user

@@ -5,8 +5,12 @@ using Akka.TestKit.VsTest;
 namespace AkkaTrainingUnitTests
 {
     [TestClass]
-    public class UnitTest1 : TestKit
+    public class ActorUnitTests : TestKit
     {
+        public ActorUnitTests() : base(TestConfig.GetConfigString())
+        {
+
+        }
         [TestMethod]
         public void TestMethod1()
         {
