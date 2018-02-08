@@ -174,8 +174,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actors\JobActor.cs" />
+    <Compile Include="Actors\JobsCoordinator.cs" />
     <Compile Include="CLI\CommandLineOptions.cs" />
     <Compile Include="Config\ActorSystemConfig.cs" />
+    <Compile Include="Messages\Messages.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -183,13 +186,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="akka_config.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Actors\" />
-    <Folder Include="Messages\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

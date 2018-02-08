@@ -5,16 +5,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommandLine;
+using Akka.Actor;
+using AkkaTraining.Config;
+using AkkaTraining.Actors;
+using AkkaTraining.Messages;
 
 namespace AkkaTraining
 {
     class Program
     {
+
+        static ActorSystem actorSystem;
+        static IActorRef coordinator;
+        const string actorSystemName = "CastActorSystem";
+
+
         static void Main(string[] args)
         {
 
+            actorSystem = ActorSystem.Create(actorSystemName, ActorSystemConfig.GetActorSystemConfig());
+
+            coordinator = actorSystem.ActorOf(Props.Create(() => new JobsCoordinator()), "JobCoordinator");
+
             while(true)
             {
+
                 var input = Console.ReadLine();
                 if(string.IsNullOrWhiteSpace(input))
                 {
@@ -46,17 +61,19 @@ namespace AkkaTraining
 
         public static bool StartJob(string jobId)
         {
-            return false;
+            coordinator.Tell(new StartJob(jobId));
+            return true;
 
         }
         public static bool StopJob(string jobId)
         {
+            coordinator.Tell(new StopJob(jobId));
             return false;
-
         }
         public static bool GetJobStatus(string jobId)
         {
-            return false;
+            coordinator.Tell(new GetStatus());
+            return true;
 
         }
     }
