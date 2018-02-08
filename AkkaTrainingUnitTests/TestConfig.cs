@@ -26,8 +26,8 @@ namespace AkkaTrainingUnitTests
                            }
                         }
                         /JobCoordinator/AdHocJobsRouter {
-                           router = consistent-hashing-pool
-                           nr-of-instances = 5
+                           router = round-robing-pool
+                           nr-of-instances = 
                            cluster {
                               enabled = on
                               allow-local-routees = on
