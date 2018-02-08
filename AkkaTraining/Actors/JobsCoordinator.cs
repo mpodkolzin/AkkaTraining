@@ -16,12 +16,15 @@ namespace AkkaTraining.Actors
         private Dictionary<string, IActorRef> _jobs;
 
         private IActorRef _jobsBroadcaster;
+        private IActorRef _adHocJobsRouter;
 
         public JobsCoordinator()
         {
             _self = Self;
             _jobs = new Dictionary<string, IActorRef>();
             _jobsBroadcaster = Context.ActorOf(Props.Empty.WithRouter(FromConfig.Instance), "JobsBroadcaster");
+            _adHocJobsRouter = Context.ActorOf(Props.Create(() => new AdHocJob()).WithRouter(FromConfig.Instance), "AdHocJobsRouter");
+            //_adHocJobsRouter = Context.ActorOf(Props.Create(() => new AdHocJob()).WithRouter(new RoundRobinPool(5)), "AdHocJob");
 
             ready();
         }
@@ -31,8 +34,16 @@ namespace AkkaTraining.Actors
             Receive<StartJob>(
                 startJob =>
                 {
-                    var jobActor = createJobIfNotExist(startJob.JobId);
-                    jobActor.Tell(startJob);
+                    if(startJob.JobId.StartsWith("ah"))
+                    {
+                        _adHocJobsRouter.Tell(new ConsistentHashableEnvelope(startJob, startJob.JobId));
+
+                    }
+                    else
+                    {
+                        var jobActor = createJobIfNotExist(startJob.JobId);
+                        jobActor.Tell(startJob);
+                    }
 
                 });
             Receive<GetStatus>(

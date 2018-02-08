@@ -28,6 +28,15 @@ namespace AkkaTraining.Config
                                       use-role = worker
                                    }
                                 }
+                                /JobCoordinator/AdHocJobsRouter {
+                                   router = consistent-hashing-pool
+                                   nr-of-instances = 5
+                                   cluster {
+                                      enabled = on
+                                      allow-local-routees = on
+                                      use-role = worker
+                                   }
+                                }
                             }
                         }
                       remote {
